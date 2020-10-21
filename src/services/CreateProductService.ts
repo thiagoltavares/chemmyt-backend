@@ -1,43 +1,31 @@
+import { getCustomRepository } from 'typeorm';
 import Product from '../models/Product';
 import ProductsRepository from '../repositories/ProductsRepository';
 
 interface RequestDTO {
   code: number;
   name: string;
-  date: Date;
-  unitOfMeasurement: string;
-  amount: number;
+  expiration: Date;
+  batch: string;
 }
 
 class CreateProductService {
-  private productsRepository: ProductsRepository;
-
-  constructor(productRepository: ProductsRepository) {
-    this.productsRepository = productRepository;
-  }
-
-  public execute({
+  public async execute({
     code,
     name,
-    date,
-    unitOfMeasurement,
-    amount,
-  }: RequestDTO): Product {
-    const productExists = this.productsRepository.findByCode(code);
+    expiration,
+    batch,
+  }: RequestDTO): Promise<Product> {
+    const productsRepository = getCustomRepository(ProductsRepository);
 
-    if (productExists) {
-      throw Error('This product is already in inventory');
-    }
-
-    const product = new Product({
-      amount,
-      unitOfMeasurement,
-      name,
-      date,
+    const product = productsRepository.create({
       code,
+      name,
+      expiration,
+      batch,
     });
 
-    this.productsRepository.createProduct(product);
+    await productsRepository.save(product);
 
     return product;
   }

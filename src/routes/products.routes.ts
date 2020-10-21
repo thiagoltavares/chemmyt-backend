@@ -1,30 +1,38 @@
 import { parseISO } from 'date-fns';
 import { Router } from 'express';
+import { getCustomRepository } from 'typeorm';
 import ProductsRepository from '../repositories/ProductsRepository';
 import CreateProductService from '../services/CreateProductService';
 
 const productsRouter = Router();
 
-const productsRepository = new ProductsRepository();
-const createProductService = new CreateProductService(productsRepository);
+productsRouter.get('/', async (request, response) => {
+  try {
+    const productsRepository = getCustomRepository(ProductsRepository);
 
-productsRouter.get('/', (request, response) => {
-  const products = productsRepository.all();
-  return response.json(products);
+    const products = await productsRepository.find();
+
+    return response.json(products);
+  } catch (err) {
+    return response.status(400).json({ message: err.message });
+  }
 });
 
-productsRouter.post('/', (request, response) => {
-  const { code, name, date, amount, unitOfMeasurement } = request.body;
-  const parsedDate = parseISO(date);
-
+productsRouter.post('/', async (request, response) => {
   try {
-    const product = createProductService.execute({
+    const { code, name, expiration, batch } = request.body;
+
+    const parsedExpiration = parseISO(expiration);
+
+    const createProduct = new CreateProductService();
+
+    const product = await createProduct.execute({
       code,
       name,
-      date: parsedDate,
-      unitOfMeasurement,
-      amount,
+      expiration: parsedExpiration,
+      batch,
     });
+
     return response.json(product);
   } catch (err) {
     return response.status(400).json({ error: err.message });

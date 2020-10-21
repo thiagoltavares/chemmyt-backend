@@ -1,32 +1,21 @@
-import { v4 as uuid } from 'uuid';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity('products')
 class Product {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
   code: number;
 
+  @Column()
   name: string;
 
-  date: Date;
+  @Column('timestamp with time zone')
+  expiration: Date;
 
-  unitOfMeasurement: string;
-
-  amount: number;
-
-  constructor({
-    amount,
-    code,
-    date,
-    name,
-    unitOfMeasurement,
-  }: Omit<Product, 'id'>) {
-    this.id = uuid();
-    this.code = code;
-    this.name = name;
-    this.date = date;
-    this.unitOfMeasurement = unitOfMeasurement;
-    this.amount = amount;
-  }
+  @Column()
+  batch: string;
 }
 
 export default Product;
