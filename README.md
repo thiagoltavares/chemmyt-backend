@@ -5,6 +5,7 @@
 - Model
 - DRY - Don't don't repeat yourself
 - S.O.L.I.D
+- KISS - Keep It Simple and Stupid
 
 # Repository Pattern / Data Mapper Parttern
 - DTO - Data Transfer Object

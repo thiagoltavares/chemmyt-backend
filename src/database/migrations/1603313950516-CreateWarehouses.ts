@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export default class CreateWarehouses1603313950516
   implements MigrationInterface {
@@ -9,7 +14,7 @@ export default class CreateWarehouses1603313950516
         columns: [
           {
             name: 'id',
-            type: 'varchar',
+            type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
@@ -21,6 +26,11 @@ export default class CreateWarehouses1603313950516
           {
             name: 'name',
             type: 'varchar',
+          },
+          {
+            name: 'branch_id',
+            type: 'uuid',
+            isNullable: true,
           },
           {
             name: 'created_at',
@@ -35,9 +45,22 @@ export default class CreateWarehouses1603313950516
         ],
       }),
     );
+    await queryRunner.createForeignKey(
+      'warehouses',
+      new TableForeignKey({
+        name: 'WarehousesBranch',
+        columnNames: ['branch_id'],
+        referencedTableName: 'branches',
+        referencedColumnNames: ['id'],
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('branches', 'WarehousesBranch');
+
     await queryRunner.dropTable('warehouses');
   }
 }

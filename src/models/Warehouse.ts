@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Branch from './Branch';
 
 @Entity('warehouses')
 class Warehouse {
@@ -16,6 +19,13 @@ class Warehouse {
 
   @Column()
   name: string;
+
+  @Column()
+  branch_id: string;
+
+  @ManyToOne(() => Branch)
+  @JoinColumn({ name: 'branch_id' })
+  branch: Branch;
 
   @CreateDateColumn()
   created_at: Date;
