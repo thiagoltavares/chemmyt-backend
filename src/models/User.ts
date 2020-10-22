@@ -6,22 +6,19 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('branches')
-class Branch {
+@Entity('users')
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  code: number;
+  registration: number;
 
   @Column()
   name: string;
 
   @Column()
-  address: string;
-
-  @Column()
-  cnpj: string;
+  password: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -30,4 +27,4 @@ class Branch {
   updated_at: Date;
 }
 
-export default Branch;
+export default User;

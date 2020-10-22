@@ -29,6 +29,16 @@ export default class CreateProducts1603039532420 implements MigrationInterface {
             name: 'expiration',
             type: 'timestamp with time zone',
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
         ],
       }),
     );

@@ -29,6 +29,16 @@ export default class CreateBranches1603313927631 implements MigrationInterface {
             name: 'cnpj',
             type: 'varchar',
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
         ],
       }),
     );
