@@ -20,11 +20,11 @@ warehousesRouter.get('/', async (request, response) => {
 
 warehousesRouter.post('/', async (request, response) => {
   try {
-    const { code, name }: Warehouse = request.body;
+    const { code, name, branch_id }: Warehouse = request.body;
 
     const createWarehouse = new CreateWarehouseService();
 
-    const warehouse = createWarehouse.execute({ code, name });
+    const warehouse = createWarehouse.execute({ code, name, branch_id });
 
     return response.json(warehouse);
   } catch (err) {

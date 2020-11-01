@@ -59,7 +59,7 @@ export default class CreateWarehouses1603313950516
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('branches', 'WarehousesBranch');
+    await queryRunner.dropForeignKey('warehouses', 'WarehousesBranch');
 
     await queryRunner.dropTable('warehouses');
   }

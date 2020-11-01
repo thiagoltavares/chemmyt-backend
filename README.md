@@ -7,9 +7,10 @@
 - S.O.L.I.D
 - KISS - Keep It Simple and Stupid
 
-# Repository Pattern / Data Mapper Parttern
+- Repositories Pattern / Data Mapper Parttern
 - DTO - Data Transfer Object
 - Service Pattern
+- Mapper Pattern
 
 # Technologies and programming technique
 - Docker

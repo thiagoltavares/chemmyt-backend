@@ -1,6 +1,6 @@
-import { getCustomRepository, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
+import { hash } from 'bcryptjs';
 import User from '../models/User';
-import UsersRepository from '../repositories/UsersRepository';
 
 interface RequestDTO {
   registration: number;
@@ -14,9 +14,14 @@ class CreateUserService extends Repository<User> {
     name,
     password,
   }: RequestDTO): Promise<User> {
-    const userRepository = getCustomRepository(UsersRepository);
+    const userRepository = getRepository(User);
+    const hashPassaword = await hash(password, 8);
 
-    const user = userRepository.create({ registration, name, password });
+    const user = userRepository.create({
+      registration,
+      name,
+      password: hashPassaword,
+    });
 
     await userRepository.save(user);
 
