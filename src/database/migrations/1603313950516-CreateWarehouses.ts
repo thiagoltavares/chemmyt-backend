@@ -22,6 +22,7 @@ export default class CreateWarehouses1603313950516
           {
             name: 'code',
             type: 'int',
+            isUnique: true,
           },
           {
             name: 'name',

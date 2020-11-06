@@ -16,6 +16,7 @@ export default class CreateUsers1603346700584 implements MigrationInterface {
           {
             name: 'registration',
             type: 'int',
+            isUnique: true,
           },
           {
             name: 'name',

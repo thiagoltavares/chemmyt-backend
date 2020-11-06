@@ -16,6 +16,7 @@ export default class CreateProducts1603039532420 implements MigrationInterface {
           {
             name: 'code',
             type: 'int',
+            isUnique: true,
           },
           {
             name: 'name',

@@ -4,6 +4,7 @@ import branchesRouter from './branches.routes';
 import warehousesRouter from './warehouses.routes';
 import userRouter from './users.routes';
 import movimentationRouter from './movimentation.routes';
+import sessionsRoute from './sessions.routes';
 
 const routes = Router();
 
@@ -12,5 +13,6 @@ routes.use('/branches', branchesRouter);
 routes.use('/warehouses', warehousesRouter);
 routes.use('/users', userRouter);
 routes.use('/movimentations', movimentationRouter);
+routes.use('/sessions', sessionsRoute);
 
 export default routes;

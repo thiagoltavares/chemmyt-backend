@@ -16,6 +16,7 @@ export default class CreateBranches1603313927631 implements MigrationInterface {
           {
             name: 'code',
             type: 'int',
+            isUnique: true,
           },
           {
             name: 'name',
