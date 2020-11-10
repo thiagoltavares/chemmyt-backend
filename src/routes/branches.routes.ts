@@ -7,29 +7,21 @@ import CreateBranchService from '../services/CreateBranchService';
 const branchesRouter = Router();
 
 branchesRouter.get('/', async (request, response) => {
-  try {
-    const branchesRepository = getCustomRepository(BranchesRepository);
+  const branchesRepository = getCustomRepository(BranchesRepository);
 
-    const branches = await branchesRepository.find();
+  const branches = await branchesRepository.find();
 
-    return response.json(branches);
-  } catch (err) {
-    return response.status(400).json({ message: err.message });
-  }
+  return response.json(branches);
 });
 
 branchesRouter.post('/', async (request, response) => {
-  try {
-    const { code, name, address, cnpj }: Omit<Branch, 'id'> = request.body;
+  const { code, name, address, cnpj }: Omit<Branch, 'id'> = request.body;
 
-    const createBranch = new CreateBranchService();
+  const createBranch = new CreateBranchService();
 
-    const branch = createBranch.execute({ code, name, cnpj, address });
+  const branch = createBranch.execute({ code, name, cnpj, address });
 
-    return response.json(branch);
-  } catch (err) {
-    return response.status(400).json({ message: err.message });
-  }
+  return response.json(branch);
 });
 
 export default branchesRouter;

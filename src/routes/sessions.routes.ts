@@ -5,22 +5,18 @@ import AuthUserService from '../services/AuthUserService';
 const sessionsRoute = Router();
 
 sessionsRoute.post('/', async (request, response) => {
-  try {
-    const { registration, password } = request.body;
+  const { registration, password } = request.body;
 
-    const authUserService = new AuthUserService();
+  const authUserService = new AuthUserService();
 
-    const { user, token } = await authUserService.execute({
-      registration,
-      password,
-    });
+  const { user, token } = await authUserService.execute({
+    registration,
+    password,
+  });
 
-    const mappedUser = UserMap.toDTO(user);
+  const mappedUser = UserMap.toDTO(user);
 
-    response.json({ user: mappedUser, token });
-  } catch (err) {
-    return response.status(400).send({ error: err.message });
-  }
+  return response.json({ user: mappedUser, token });
 });
 
 export default sessionsRoute;
