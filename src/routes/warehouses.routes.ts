@@ -7,29 +7,21 @@ import CreateWarehouseService from '../services/CreateWarehouseService';
 const warehousesRouter = Router();
 
 warehousesRouter.get('/', async (request, response) => {
-  try {
-    const warehousesRepository = getCustomRepository(WarehousesRepository);
+  const warehousesRepository = getCustomRepository(WarehousesRepository);
 
-    const warehouse = await warehousesRepository.find();
+  const warehouse = await warehousesRepository.find();
 
-    return response.json(warehouse);
-  } catch (err) {
-    return response.status(400).json({ message: err.message });
-  }
+  return response.json(warehouse);
 });
 
 warehousesRouter.post('/', async (request, response) => {
-  try {
-    const { code, name, branch_id }: Warehouse = request.body;
+  const { code, name, branch_id }: Warehouse = request.body;
 
-    const createWarehouse = new CreateWarehouseService();
+  const createWarehouse = new CreateWarehouseService();
 
-    const warehouse = createWarehouse.execute({ code, name, branch_id });
+  const warehouse = createWarehouse.execute({ code, name, branch_id });
 
-    return response.json(warehouse);
-  } catch (err) {
-    return response.status(400).json({ message: err.message });
-  }
+  return response.json(warehouse);
 });
 
 export default warehousesRouter;
